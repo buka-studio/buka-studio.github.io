@@ -2,10 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --periwinkle: hsla(224, 96%, 90%, 1);
+  --periwinkle-2: hsla(258, 94%, 86%, 1);
+  --tropical-indigo: hsla(261, 89%, 75%, 1);
+  --tropical-indigo-2: hsl(261, 80%, 76%);
+  --wisteria: hsla(261, 79%, 79%, 1);
+  --mauve: hsla(257, 75%, 81%, 1);
+  --celeste: hsl(186, 100%, 80%);
+  --columbia-blue: hsla(203, 97%, 89%, 0.3);
+  --mauve-2: hsla(261, 84%, 80%, 1);
+  --light-cyan: hsla(188, 100%, 89%, 1);
+  --mint: #92fdf6;
+  --lilac: #b493ff;
+
+  --main-theme-1: var(--tropical-indigo);
+  --main-theme-2: var(--tropical-indigo-2);
+  --main-theme-3: var(--periwinkle-2);
+  --main-theme-accent-1: var(--celeste);
+  --main-theme-accent-2: var(--columbia-blue);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,11 +42,37 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: radial-gradient(
+      circle at var(--mouse-x, 9999px) var(--mouse-y, 9999px),
+      var(--main-theme-3) 5%,
+      transparent 40%
+    ),
+    radial-gradient(circle at top right, var(--main-theme-1), transparent 80%),
+    radial-gradient(
+      circle at top left,
+      var(--main-theme-accent-1),
+      transparent 40%
+    ),
+    radial-gradient(circle at bottom left, var(--main-theme-3), transparent 20%),
+    radial-gradient(var(--main-theme-2), transparent),
+    radial-gradient(var(--main-theme-1), transparent);
+  transition: all 0.5s;
+}
+
+body *::selection {
+  background-color: var(--main-theme-accent-2);
+}
+
+.page::before {
+  position: absolute;
+  right: 0;
+  top: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  opacity: 60%;
+  background: #000000;
+  filter: url(#noiseFilter);
+  pointer-events: none;
 }
