@@ -1,14 +1,14 @@
 import Logo from "./Logo";
-import MousePositionVars from "./MousePositionVars";
+import MousePositionVarsSetter from "./MousePositionVarsSetter";
 
 export default function Home() {
   return (
-    <div className="page flex min-h-screen flex-col items-center justify-between p-12">
-      <MousePositionVars />
+    <div className="page flex min-h-full flex-col items-center justify-between p-12">
+      <MousePositionVarsSetter />
       <main className="text-center flex flex-col items-center my-auto relative z-10">
         <Logo />
-        <h1 className="text-5xl mt-10">Buka Studio</h1>
-        <p className="uppercase text-sm mt-1 tracking-[0.04375rem]">
+        <h1 className="text-4xl md:text-5xl mt-10 ">Buka Studio</h1>
+        <p className="uppercase text-xs md:text-sm mt-1 tracking-[0.04375rem]">
           Design and Development
         </p>
       </main>

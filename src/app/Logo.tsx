@@ -9,10 +9,13 @@ export default function Logo() {
   const style = { "--accent": colors[color] } as React.CSSProperties;
 
   return (
-    <button onClick={() => setColor((color + 1) % colors.length)} className="">
+    <button
+      onClick={() => setColor((color + 1) % colors.length)}
+      className="shadow-sm shadow-neutral-800 rounded-[2.25rem] hover:shadow-md transition-all duration-200 hover:scale-[102%] active:scale-100 active:shadow-sm active:shadow-neutral-800 hover:shadow-neutral-600"
+    >
       <LogoIcon
         style={style}
-        className="shadow-sm shadow-neutral-800 rounded-[2.25rem] hover:shadow-md transition-all duration-200 hover:scale-[102%] active:scale-100 active:shadow-sm active:shadow-neutral-800 hover:shadow-neutral-600 [&_path]:transition-all [&_path]:duration-200"
+        className=" [&_path]:transition-all [&_path]:duration-200"
       />
     </button>
   );

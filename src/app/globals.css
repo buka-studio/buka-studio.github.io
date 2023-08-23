@@ -57,6 +57,7 @@ body {
     radial-gradient(var(--main-theme-2), transparent),
     radial-gradient(var(--main-theme-1), transparent);
   transition: all 0.5s;
+  transform: translateZ(0);
 }
 
 body *::selection {

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export const relativeMouseClassname = "relative-mouse";
 
-export default function MousePositionVars() {
+export default function MousePositionVarsSetter() {
   useEffect(() => {
     const handler = ({ clientX, clientY }: MouseEvent) => {
       const shinyCards = document.querySelectorAll(
