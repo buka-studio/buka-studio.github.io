@@ -17,6 +17,7 @@ jobs:
           npm ci
           npm run build
           touch out/.nojekyll
+          echo "www.buka.studio" > out/CNAME
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
