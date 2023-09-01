@@ -1,6 +1,11 @@
 import Logo from "./Logo";
 import MousePositionVarsSetter from "./MousePositionVarsSetter";
 
+export const metadata = {
+  title: "Buka Studio",
+  description: "Design and Development Studio",
+};
+
 export default function Home() {
   return (
     <div className="page flex min-h-full flex-col items-center justify-between p-12">
