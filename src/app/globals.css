@@ -33,14 +33,6 @@
   --main-theme-accent-2: var(--columbia-blue);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
   background: radial-gradient(
       circle at var(--mouse-x, 9999px) var(--mouse-y, 9999px),
@@ -60,6 +52,23 @@ body {
   transform: translateZ(0);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+    color: white;
+    background: black;
+  }
+
+  body {
+    background: radial-gradient(circle at top right, black, transparent 80%),
+      radial-gradient(circle at top left, #161616, transparent 40%),
+      radial-gradient(circle at bottom left, black, transparent 70%),
+      radial-gradient(#161616, transparent), radial-gradient(black, transparent);
+  }
+}
+
 body *::selection {
   background-color: var(--main-theme-accent-2);
 }
@@ -72,7 +81,7 @@ body *::selection {
   width: 100%;
   height: 100%;
   z-index: 2;
-  opacity: 60%;
+  opacity: 20%;
   background: #000000;
   filter: url(#noiseFilter);
   pointer-events: none;

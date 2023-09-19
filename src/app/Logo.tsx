@@ -10,13 +10,11 @@ export default function Logo() {
 
   return (
     <button
+      style={style}
       onClick={() => setColor((color + 1) % colors.length)}
-      className="shadow-sm shadow-neutral-800 rounded-[2.25rem] hover:shadow-md transition-all duration-200 hover:scale-[102%] active:scale-100 active:shadow-sm active:shadow-neutral-800 hover:shadow-neutral-600"
+      className="shadow-sm outline-none shadow-neutral-950 rounded-[2.25rem] hover:shadow-md transition-all duration-200 hover:scale-[102%] active:scale-100 active:shadow-sm active:shadow-neutral-950 hover:shadow-neutral-950 focus-visible:outline-none focus-visible:shadow-md focus-visible:scale-[102%] focus-visible:shadow-neutral-950"
     >
-      <LogoIcon
-        style={style}
-        className=" [&_path]:transition-all [&_path]:duration-200"
-      />
+      <LogoIcon className=" [&_path]:transition-all [&_path]:duration-200" />
     </button>
   );
 }
