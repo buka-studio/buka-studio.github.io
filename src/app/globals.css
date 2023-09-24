@@ -13,18 +13,18 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
-  --periwinkle: hsla(224, 96%, 90%, 1);
-  --periwinkle-2: hsla(258, 94%, 86%, 1);
-  --tropical-indigo: hsla(261, 89%, 75%, 1);
-  --tropical-indigo-2: hsl(261, 80%, 76%);
-  --wisteria: hsla(261, 79%, 79%, 1);
-  --mauve: hsla(257, 75%, 81%, 1);
-  --celeste: hsl(186, 100%, 80%);
-  --columbia-blue: hsla(203, 97%, 89%, 0.3);
-  --mauve-2: hsla(261, 84%, 80%, 1);
-  --light-cyan: hsla(188, 100%, 89%, 1);
-  --mint: #92fdf6;
-  --lilac: #b493ff;
+  --periwinkle: rgb(234, 152, 131);
+  --periwinkle-2: rgb(245, 231, 231);
+  --tropical-indigo: rgb(240, 218, 213);
+  --tropical-indigo-2: hsl(262, 49%, 89%);
+  --wisteria: rgb(242, 235, 255);
+  --mauve: rgb(241, 236, 255);
+  --celeste: hsl(0, 100%, 99%);
+  --columbia-blue: hsla(0, 0%, 78%, 0.3);
+  --mauve-2: rgb(241, 194, 186);
+  --light-cyan: rgb(253, 255, 255);
+  --mint: #f3fffe;
+  --lilac: #f6f1ff;
 
   --main-theme-1: var(--tropical-indigo);
   --main-theme-2: var(--tropical-indigo-2);
@@ -63,9 +63,10 @@ body {
 
   body {
     background: radial-gradient(circle at top right, black, transparent 80%),
-      radial-gradient(circle at top left, #161616, transparent 40%),
+      radial-gradient(circle at top left, black, transparent 90%),
       radial-gradient(circle at bottom left, black, transparent 70%),
-      radial-gradient(#161616, transparent), radial-gradient(black, transparent);
+      radial-gradient(#0f0f0f, transparent 90%),
+      radial-gradient(#0f0f0f, transparent);
   }
 }
 

@@ -12,7 +12,7 @@ export default function Home() {
           Design and Development
         </p>
       </main>
-      <footer className="text-center uppercase font-medium text-xs leading-5 tracking-[0.03125rem] max-w-4xl mt-5 opacity-60">
+      <footer className="text-center font-regular text-xs leading-5 tracking-[0.03125rem] max-w-4xl mt-5 opacity-60">
         Legal information / Buka Studio d.o.o. Dubravica 6, 10090 Zagreb /
         Društvo je upisano u sudski registar trgovačkog suda u Zagrebu, pod
         brojem 081528558, Matični broj 081528558, OIB 57408517057. Temeljni
