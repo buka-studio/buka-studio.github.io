@@ -1,11 +1,10 @@
-import { useState } from "react";
 import Footer from "./Footer";
 import Logo from "./Logo";
 import MousePositionVarsSetter from "./MousePositionVarsSetter";
 
 export default function Home() {
   return (
-    <div className="page flex min-h-full flex-col items-center justify-between p-12">
+    <div className="page flex min-h-screen flex-col items-center justify-between p-8 md:p-12">
       <MousePositionVarsSetter />
       <main className="text-center flex flex-col items-center my-auto relative z-10">
         <Logo />
@@ -27,5 +26,4 @@ export default function Home() {
       </svg>
     </div>
   );
-  //Legal information / Buka Studio d.o.o. Dubravica 6, 10090 Zagreb / Društvo je upisano u sudski registar trgovačkog suda u Zagrebu, pod brojem 081528558, Matični broj 081528558, OIB 57408517057. Temeljni kapital društva iznos 2.500,00 eur i uplaćen je u cijelosti. / Račun otvoren u Erste&Steiermärkische Bank d.d., Jadranski trg 3A, 51000 Rijeka, IBAN HR8724020061101179225 / Član uprave: Marijana Šimag
 }
