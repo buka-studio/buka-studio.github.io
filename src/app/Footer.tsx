@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <Drawer.Root>
       <footer className="max-w-5xl flex justify-between w-full text-sm text-neutral-500 md:flex-row flex-col gap-4">
-        <div>© 2023 Buka Studio. All rights reserved</div>
+        <div>© 2024 Buka Studio. All rights reserved</div>
         <div className="flex gap-5">
           <Drawer.Trigger className="hover:text-white transition-colors duration-200">
             Contact
@@ -38,12 +38,13 @@ export default function Footer() {
               <div className="[&]:[text-wrap:balance] mb-4">
                 The company is registered at the Commercial Court in Zagreb
                 under Registration number 081528558 / Identification number
-                081528558 / Personal Identification Number 57408517057
+                081528558 / OIB 57408517057
               </div>
               <div className="[&]:[text-wrap:balance]">
                 Share capital of the company of 2.500,00 eur has been paid in
                 full. Erste&Steiermärkische Bank d.d.,Jadranski trg 3A, 51000
-                Rijeka, IBAN HR8724020061101179225. Board Member: Marijana Šimag
+                Rijeka, IBAN HR8724020061101179225. Board Member: Marijana
+                Pavlinić
               </div>
             </div>
             <div className="text-xs">
@@ -57,10 +58,10 @@ export default function Footer() {
                 </a>
                 <br />
                 <a
-                  href="https://marijanasimag.com"
+                  href="https://marijanapav.com"
                   className="hover:text-white transition-colors duration-200"
                 >
-                  marijanasimag.com
+                  marijanapav.com
                 </a>
                 <br />
                 <a
