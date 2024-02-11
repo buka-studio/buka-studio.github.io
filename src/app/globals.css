@@ -9,6 +9,7 @@
 }
 
 :root {
+  -webkit-font-smoothing: antialiased;
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -61,7 +62,7 @@
   background: black;
 }
 
-body {
+.page {
   background: radial-gradient(circle at top right, black, transparent 80%),
     radial-gradient(circle at top left, #141414, transparent 70%),
     radial-gradient(circle at bottom left, black, transparent 70%),

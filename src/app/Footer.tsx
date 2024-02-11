@@ -2,15 +2,20 @@
 
 import { Drawer } from "vaul";
 
-export default function Footer() {
+export default function Footer({ hideContact }: { hideContact?: boolean }) {
   return (
     <Drawer.Root>
       <footer className="max-w-5xl flex justify-between w-full text-sm text-neutral-500 md:flex-row flex-col gap-4">
-        <div>© 2024 Buka Studio. All rights reserved</div>
+        <div>
+          © 2024 <a href="https://buka.studio">Buka Studio</a>. All rights
+          reserved
+        </div>
         <div className="flex gap-5">
-          <Drawer.Trigger className="hover:text-white transition-colors duration-200">
-            Contact
-          </Drawer.Trigger>
+          {!hideContact && (
+            <Drawer.Trigger className="hover:text-white transition-colors duration-200">
+              Contact
+            </Drawer.Trigger>
+          )}
           <a
             href="https://github.com/buka-studio/buka-studio.github.io"
             className="hover:text-white transition-colors duration-200"
