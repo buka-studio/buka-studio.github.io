@@ -1,8 +1,13 @@
 import { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Cormorant, Inter } from "next/font/google";
 import "./globals.css";
+import { cn } from "./util";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const cormorant = Cormorant({
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+});
 
 export const metadata: Metadata = {
   title: "Buka Studio",
@@ -16,7 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="">
-      <body className={`${inter.variable} font-sans`}>{children}</body>
+      <body className={cn(inter.variable, cormorant.variable, "font-sans")}>
+        {children}
+      </body>
     </html>
   );
 }

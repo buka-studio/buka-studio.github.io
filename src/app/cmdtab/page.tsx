@@ -1,7 +1,6 @@
 "use client";
 
 import LogoIcon from "../../../public/cmdtab/logo-icon.svg";
-import Footer from "../Footer";
 import FeaturesCarousel from "./components/FeaturesCarousel";
 import InstallButton from "./components/InstallButton";
 
@@ -51,7 +50,20 @@ export default function Home() {
       </div>
 
       <div className="w-full flex justify-center items-center py-8">
-        <Footer hideContact />
+        <footer className="max-w-5xl flex justify-between w-full text-sm text-neutral-500 md:flex-row flex-col gap-4">
+          <div>
+            © 2024 <a href="https://buka.studio">Buka Studio</a>. All rights
+            reserved
+          </div>
+          <div className="flex gap-5">
+            <a
+              href="https://github.com/buka-studio/cmdtab"
+              className="hover:text-white transition-colors duration-200"
+            >
+              Github
+            </a>
+          </div>
+        </footer>
       </div>
       <MousePositionVarsSetter />
 

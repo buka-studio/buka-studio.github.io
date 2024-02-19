@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        brand: { DEFAULT: "var(--color-brand)" },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -15,6 +18,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-inter)"],
+        serif: ["var(--font-cormorant)"],
         mono: ["var(--font-jetbrains-mono)"],
       },
     },

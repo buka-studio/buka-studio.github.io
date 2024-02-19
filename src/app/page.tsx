@@ -1,29 +1,42 @@
 import Footer from "./Footer";
-import Logo from "./Logo";
-import MousePositionVarsSetter from "./MousePositionVarsSetter";
+import ParticlesLogo from "./ParticlesLogo";
 
 export default function Home() {
   return (
-    <div className="page flex min-h-screen flex-col items-center justify-between p-8 md:p-12">
-      <MousePositionVarsSetter />
-      <main className="text-center flex flex-col items-center my-auto relative z-10">
-        <Logo />
-        <h1 className="text-4xl md:text-5xl mt-10 ">Buka Studio</h1>
-        <p className="uppercase text-xs md:text-sm mt-1 tracking-[0.04375rem]">
-          Design and Development
-        </p>
-      </main>
-      <Footer />
-      <svg xmlns="http://www.w3.org/2000/svg" className="absolute">
-        <filter id="noiseFilter">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="1.25"
-            numOctaves="3"
-            stitchTiles="stitch"
-          />
-        </filter>
-      </svg>
+    <div className="">
+      <div className="fixed inset-0 z-0">
+        <ParticlesLogo />
+      </div>
+      <div className="fixed inset-5 md:inset-0 z-10 pointer-events-none [&>*]:pointer-events-auto">
+        <main className="grid grid-rows-[1fr_auto] grid-cols-[1fr_auto] text-brand gap-5 md:mx-auto bottom-10 left-10 right-10 mr-auto text-sm md:text-base md:absolute">
+          <div className="flex flex-col gap-2 md:gap-5 relative z-10">
+            <h1 className="font-serif text-2xl uppercase">Buka Studio</h1>
+            <p className="text-balance">
+              Design and Development
+              <br />
+              studio based in Zagreb
+            </p>
+            <div>/</div>
+          </div>
+          <Footer className="row-start-2 md:static absolute bottom-0 text-sm md:text-base" />
+          <div className="md:col-start-2 row-start-2 flex items-center gap-5">
+            <a
+              href="mailto:hello@buka.studio"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Contact
+            </a>
+            <a
+              href="https://github.com/buka-studio"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

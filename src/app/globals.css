@@ -10,69 +10,8 @@
 
 :root {
   -webkit-font-smoothing: antialiased;
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-
-  --periwinkle: rgb(234, 152, 131);
-  --periwinkle-2: rgb(245, 231, 231);
-  --tropical-indigo: rgb(240, 218, 213);
-  --tropical-indigo-2: hsl(262, 49%, 89%);
-  --wisteria: rgb(242, 235, 255);
-  --mauve: rgb(241, 236, 255);
-  --celeste: hsl(0, 100%, 99%);
-  --columbia-blue: hsla(0, 0%, 78%, 0.3);
-  --mauve-2: rgb(241, 194, 186);
-  --light-cyan: rgb(253, 255, 255);
-  --mint: #f3fffe;
-  --lilac: #f6f1ff;
-
-  --main-theme-1: var(--tropical-indigo);
-  --main-theme-2: var(--tropical-indigo-2);
-  --main-theme-3: var(--periwinkle-2);
-  --main-theme-accent-1: var(--celeste);
-  --main-theme-accent-2: var(--columbia-blue);
-}
-
-/* body {
-  background: radial-gradient(
-      circle at var(--mouse-x, 9999px) var(--mouse-y, 9999px),
-      var(--main-theme-3) 5%,
-      transparent 40%
-    ),
-    radial-gradient(circle at top right, var(--main-theme-1), transparent 80%),
-    radial-gradient(
-      circle at top left,
-      var(--main-theme-accent-1),
-      transparent 40%
-    ),
-    radial-gradient(circle at bottom left, var(--main-theme-3), transparent 20%),
-    radial-gradient(var(--main-theme-2), transparent),
-    radial-gradient(var(--main-theme-1), transparent);
-  transition: all 0.5s;
-} */
-/* transform: translateZ(0); */
-
-/* @media (prefers-color-scheme: dark) { */
-:root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
-  color: white;
   background: black;
-}
-
-.page {
-  background: radial-gradient(circle at top right, black, transparent 80%),
-    radial-gradient(circle at top left, #141414, transparent 70%),
-    radial-gradient(circle at bottom left, black, transparent 70%),
-    radial-gradient(#0f0f0f, transparent 90%),
-    radial-gradient(#0f0f0f, transparent);
-}
-/* } */
-
-body *::selection {
-  background-color: var(--main-theme-accent-2);
+  --color-brand: #ec4c22;
 }
 
 .page::before {
