@@ -17,5 +17,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className={`${jetbrains.variable}`}>{children}</div>;
+  return <div className={`${jetbrains.variable} text-white`}>{children}</div>;
 }

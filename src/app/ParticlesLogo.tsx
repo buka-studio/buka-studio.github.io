@@ -10,6 +10,7 @@ import {
 } from "@react-three/fiber";
 import { ComponentProps, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
+// @ts-ignore
 import { MeshSurfaceSampler } from "three/addons/math/MeshSurfaceSampler.js";
 
 import { clamp, useSpring } from "framer-motion";
@@ -124,7 +125,7 @@ const ParticlesLogo = ({
   }, [progress, onLoaded]);
 
   const sampler = useSampler(
-    nodes?.Buka?.geometry,
+    (nodes?.Buka as any)?.geometry,
     count * count,
     clamp(200, 300, window.innerWidth / 4.5)
   );

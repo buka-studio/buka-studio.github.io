@@ -14,7 +14,12 @@ import {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#121212] flex flex-col">
+    <div className="min-h-screen flex flex-col">
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `:root {background: #121212;}`,
+        }}
+      ></style>
       <div className="flex-col items-center justify-between p-8 md:p-12 flex-1">
         <main className="text-center flex flex-col items-center my-auto relative z-10">
           <div
