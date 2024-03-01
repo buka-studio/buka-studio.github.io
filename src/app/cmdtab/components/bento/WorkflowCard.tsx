@@ -108,7 +108,7 @@ export default function WorkflowCard({
           <SelectIcon /> Efficient Workflow
         </h3>
         <p className="text-balance text-neutral-400 text-left">
-          Organize and manage your workflow with multi-select and tagging
+          Organize and manage your tabs with multi-select and tagging
           capabilities.
         </p>
       </div>
