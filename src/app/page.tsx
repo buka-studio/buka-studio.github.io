@@ -1,5 +1,7 @@
+import BukaLogo from "../../public/logomark.svg";
 import Footer from "./Footer";
 import ParticlesLogo from "./ParticlesLogo";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Home() {
   return (
@@ -10,7 +12,14 @@ export default function Home() {
       <div className="fixed inset-5 md:inset-0 z-10 pointer-events-none [&>*]:pointer-events-auto">
         <main className="grid grid-rows-[1fr_auto] grid-cols-[1fr_auto] text-brand gap-5 md:mx-auto bottom-10 left-10 right-10 mr-auto text-sm md:text-base md:absolute">
           <div className="flex flex-col gap-2 md:gap-5 relative z-10">
-            <h1 className="font-serif text-2xl uppercase">Buka Studio</h1>
+            <div className="flex top-10 left-10 mb-5 md:fixed right-10 justify-between">
+              <h1 className="text-base flex items-center gap-2 ">
+                <BukaLogo className="h-5 w-5" />
+                Buka Studio
+              </h1>
+              <ThemeToggle />
+            </div>
+
             <p className="text-balance">
               Design and Development
               <br />

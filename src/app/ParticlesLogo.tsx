@@ -14,6 +14,7 @@ import * as THREE from "three";
 import { MeshSurfaceSampler } from "three/addons/math/MeshSurfaceSampler.js";
 
 import { clamp, useSpring } from "framer-motion";
+import { useTheme } from "next-themes";
 import SimulationMaterial from "./SimulationMaterial";
 import useMatchMedia from "./useMatchMedia";
 import { cn } from "./util";
@@ -81,7 +82,7 @@ const useMouseRef = () => {
 
 // inspired by https://blog.maximeheckel.com/posts/the-magical-world-of-particles-with-react-three-fiber-and-shaders/
 const ParticlesLogo = ({
-  count = 200,
+  count = 300,
   active,
   onLoaded,
 }: {
@@ -90,9 +91,11 @@ const ParticlesLogo = ({
   onLoaded: () => void;
 }) => {
   const isTouchDevice = useMatchMedia("(pointer: coarse)");
+  const { resolvedTheme, setTheme } = useTheme();
 
   const points = useRef<THREE.Points>(null);
   const simulationMaterialRef = useRef<THREE.ShaderMaterial>(null);
+  const baseMaterialRef = useRef<THREE.ShaderMaterial>(null);
 
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(
@@ -146,6 +149,12 @@ const ParticlesLogo = ({
       uPositions: {
         value: null,
       },
+      uColor: {
+        value:
+          resolvedTheme === "dark"
+            ? new THREE.Vector3(1.0, 0.2, 0.13)
+            : new THREE.Vector3(0, 0, 0),
+      },
     }),
     []
   );
@@ -177,9 +186,13 @@ const ParticlesLogo = ({
     gl.render(scene, camera);
     gl.setRenderTarget(null);
 
-    (
-      points.current!.material as THREE.ShaderMaterial
-    ).uniforms.uPositions.value = renderTarget.texture;
+    const pointsMaterial = points.current!.material as THREE.ShaderMaterial;
+
+    pointsMaterial.uniforms.uPositions.value = renderTarget.texture;
+    pointsMaterial.uniforms.uColor.value =
+      resolvedTheme === "dark"
+        ? new THREE.Vector3(1.0, 0.2, 0.13)
+        : new THREE.Vector3(0, 0, 0);
 
     simulationMaterialRef.current.uniforms.uTime.value = clock.elapsedTime;
     if (isTouchDevice) {
@@ -231,16 +244,18 @@ const ParticlesLogo = ({
         <shaderMaterial
           blending={THREE.AdditiveBlending}
           depthWrite={false}
+          ref={baseMaterialRef}
           fragmentShader={`
-              void main() {
-                vec3 color = vec3(1., .20, .13);
-                vec2 xy = gl_PointCoord.xy - vec2(0.5);
+            uniform vec3 uColor;
 
-                float dropoff = smoothstep(0.5, 0.1, length(xy));
+            void main() {
+              vec2 xy = gl_PointCoord.xy - vec2(0.5);
 
-                gl_FragColor = vec4(color * dropoff, 1.0);
-              }
-              `}
+              float dropoff = smoothstep(0.5, 0.1, length(xy));
+
+              gl_FragColor = vec4(uColor * dropoff, 1.0);
+            }
+            `}
           vertexShader={`
             uniform sampler2D uPositions;
             uniform float uTime;

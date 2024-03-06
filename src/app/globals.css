@@ -10,6 +10,15 @@
 
 :root {
   -webkit-font-smoothing: antialiased;
+  transition: background 0.35s;
+}
+
+[data-theme="light"] {
+  background: white;
+  --color-brand: black;
+}
+
+[data-theme="dark"] {
   background: black;
   --color-brand: #ec4c22;
 }
