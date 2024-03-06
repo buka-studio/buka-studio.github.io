@@ -7,6 +7,10 @@ import { cn } from "./util";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
+  metadataBase:
+    process.env.NODE_ENV === "production"
+      ? new URL("https://buka.studio")
+      : undefined,
   title: "Buka Studio",
   description: "Design and Development Studio",
 };
