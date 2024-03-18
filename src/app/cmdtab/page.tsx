@@ -54,7 +54,7 @@ export default function Home() {
         </main>
       </div>
 
-      <div className="w-full flex justify-center items-center py-8">
+      <div className="w-full flex justify-center items-center py-8 lg:px-0 px-5">
         <footer className="max-w-5xl flex justify-between w-full text-sm text-neutral-500 md:flex-row flex-col gap-4">
           <div>
             © 2024 <a href="https://buka.studio">Buka Studio</a>. All rights

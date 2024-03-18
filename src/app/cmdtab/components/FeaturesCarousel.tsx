@@ -13,7 +13,7 @@ const features = [
 ];
 
 const Upcoming = () => (
-  <span className="px-2 py-1 bg-[#252525] rounded-lg text-white font-mono text-sm">
+  <span className="px-2 py-1 bg-[#252525] rounded-lg text-white font-mono text-xs md:text-sm">
     upcoming
   </span>
 );
@@ -33,7 +33,7 @@ export default function FeaturesCarousel() {
           {features.map((feature, index) => (
             <li
               key={index}
-              className="carousel-item text-left text-[#e3e3e3] text-3xl flex w-full items-center gap-2"
+              className="carousel-item text-left text-[#e3e3e3] text-xl md:text-3xl flex w-full items-center gap-2"
               style={{ "--index": index, "--inset": 1.5 } as CSSProperties}
             >
               {feature.label} {feature.upcoming && <Upcoming />}
