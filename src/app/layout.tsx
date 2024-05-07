@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "./Providers";
 import "./globals.css";
+import { Toaster } from "./ui/Toast";
 import { cn } from "./util";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en" className="" suppressHydrationWarning>
       <body className={cn(inter.variable, "font-sans")}>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );

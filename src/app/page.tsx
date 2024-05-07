@@ -1,4 +1,4 @@
-import BukaLogo from "../../public/logomark.svg";
+import BrandMenu from "./BrandMenu";
 import Footer from "./Footer";
 import ParticlesLogo from "./ParticlesLogo";
 import { ThemeToggle } from "./ThemeToggle";
@@ -14,12 +14,10 @@ export default function Home() {
           <div className="flex flex-col gap-2 md:gap-5 relative z-10">
             <div className="flex top-10 left-10 mb-5 md:fixed right-10 justify-between">
               <h1 className="text-base flex items-center gap-2 ">
-                <BukaLogo className="h-5 w-5" />
-                Buka Studio
+                <BrandMenu />
               </h1>
               <ThemeToggle />
             </div>
-
             <p className="text-balance">
               Design and Development
               <br />
