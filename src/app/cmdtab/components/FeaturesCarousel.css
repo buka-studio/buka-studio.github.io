@@ -10,8 +10,8 @@
 }
 
 .shadow {
-  background: linear-gradient(0deg, #121212 10%, transparent 40%),
-    linear-gradient(0deg, transparent 60%, #121212);
+  background: linear-gradient(0deg, black 10%, transparent 40%),
+    linear-gradient(0deg, transparent 60%, black);
 }
 
 .carousel-item {

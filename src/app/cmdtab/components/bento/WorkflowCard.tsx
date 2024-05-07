@@ -94,7 +94,7 @@ export default function WorkflowCard({
               <TabItem key={tab.link} tab={tab} />
             ))}
           </div>
-          <div className="overlay absolute h-full right-0 w-12 top-0 bg-[linear-gradient(90deg,transparent,#171717)]" />
+          <div className="overlay absolute h-full right-0 w-12 top-0 bg-[linear-gradient(90deg,transparent,#101010)]" />
           <div className="select absolute top-5 left-5">
             <div className="select-overlay border-[#FF7A2B] bg-[#ea5a0c1a] w-full h-full border opacity-0" />
             <PointerIcon className="absolute bottom-[-20px] right-[-20px]" />

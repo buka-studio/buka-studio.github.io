@@ -20,7 +20,7 @@ export default function InstallButton({
       <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#f27239_0%,#ea154c_50%,#f27239_100%)]" />
       <span
         className={
-          "inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-[#121212] px-8 py-1 text-sm font-medium text-neutral-200 backdrop-blur-3xl"
+          "inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-background px-8 py-1 text-sm font-medium text-neutral-200 backdrop-blur-3xl"
         }
       >
         {children}

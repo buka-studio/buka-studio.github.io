@@ -11,7 +11,7 @@ const BentoCard = forwardRef<
     >
       <div
         className={cn(
-          "border border-[#2F2E2E] p-6 flex flex-col gap-10 bg-[#171717] rounded-2xl h-[414px] relative-mouse relative z-[1] [&_>*]:opacity-1 overflow-hidden"
+          "border border-[#1f1f1f] p-6 flex flex-col gap-10 bg-[#101010] rounded-2xl h-[414px] relative-mouse relative z-[1] [&_>*]:opacity-1 overflow-hidden"
         )}
         ref={ref}
         {...props}
