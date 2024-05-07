@@ -21,7 +21,7 @@ const Icon = ({ fill }: { fill: string }) =>
 
 const toastProps = {
   dismissible: true,
-  className: "group-[.toaster]:text-brand",
+  className: "group-[.toaster]:!text-brand",
 };
 
 async function copyIcon(color: string) {
