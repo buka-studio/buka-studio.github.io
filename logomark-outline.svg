@@ -1,0 +1,14 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="68"
+  height="68"
+  viewBox="0 0 68 68"
+  fill="none"
+>
+  <path
+    stroke="currentColor"
+    stroke-width="3"
+    stroke-dasharray="5px"
+    d="M2 48.864V2h63.667C64.12 23.885 49.272 42.097 29.159 48.601c14.2-2.82 26.913-9.764 36.841-19.53V66H2V48.863Zm0 0Z"
+  />
+</svg>
