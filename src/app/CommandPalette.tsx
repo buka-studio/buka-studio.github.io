@@ -12,9 +12,7 @@ import {
 import { toast } from "./ui/Toast";
 
 export const getPageBackgroundColor = () =>
-  getComputedStyle(document.documentElement).getPropertyValue(
-    "--page-background"
-  );
+  getComputedStyle(document.documentElement).backgroundColor;
 
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
