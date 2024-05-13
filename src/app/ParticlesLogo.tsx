@@ -106,15 +106,17 @@ const ParticlesLogo = ({
   color,
   scale,
   geometry,
+  disableDropoff,
 }: {
   count: number;
   active: boolean;
   color?: THREE.Vector3;
   scale: number;
   geometry: THREE.BufferGeometry;
+  disableDropoff?: boolean;
 }) => {
   const isTouchDevice = useMatchMedia("(pointer: coarse)");
-  useTheme();
+  const { resolvedTheme } = useTheme();
 
   const points = useRef<THREE.Points>(null);
   const simulationMaterialRef = useRef<THREE.ShaderMaterial>(null);
@@ -166,6 +168,9 @@ const ParticlesLogo = ({
       uColor: {
         value: color || getColorVec(),
       },
+      uDisableDropoff: {
+        value: disableDropoff,
+      },
     }),
     []
   );
@@ -202,6 +207,11 @@ const ParticlesLogo = ({
     const pointsMaterial = points.current!.material as THREE.ShaderMaterial;
 
     pointsMaterial.uniforms.uPositions.value = renderTarget.texture;
+    pointsMaterial.uniforms.uDisableDropoff.value =
+      disableDropoff === undefined
+        ? resolvedTheme === "light"
+        : Boolean(disableDropoff);
+
     if (!pointsMaterial.uniforms.uColor.value.equals(col)) {
       pointsMaterial.uniforms.uColor.value = col;
       pointsMaterial.needsUpdate = true;
@@ -262,15 +272,16 @@ const ParticlesLogo = ({
           fragmentShader={`
             uniform vec3 uColor;
             uniform float uTime;
+            uniform bool uDisableDropoff;
 
             void main() {
               vec2 xy = gl_PointCoord.xy - vec2(0.5);
 
-              float dropoff = smoothstep(0.5, 0.1, length(xy));
+              float dropoff = uDisableDropoff ? 1. : smoothstep(0.6, 0.1, length(xy));
 
               float fadeIn = smoothstep(0.0, 1.0, uTime);
 
-              gl_FragColor = vec4(uColor * dropoff, fadeIn);
+              gl_FragColor = vec4(uColor, fadeIn * dropoff);
             }
             `}
           vertexShader={`
@@ -348,6 +359,7 @@ const defaultSettings = {
   count: 300,
   depth: 50,
   scale: 6, // 4-8 range
+  disableDropoff: undefined,
   logoSVG: bukaSVG,
 };
 
@@ -365,6 +377,7 @@ const Scene = ({
     count: number;
     logoSVG?: string;
     depth?: number;
+    disableDropoff?: boolean;
     scale: number;
   }>({ ...defaultSettings });
 
@@ -381,6 +394,7 @@ const Scene = ({
         "--page-background"
       ),
       ...defaultSettings,
+      disableDropoff: false,
     };
 
     function handleDebug() {
@@ -443,6 +457,12 @@ const Scene = ({
         }).on("change", (e) => {
           if (e.last) {
             settings.current.depth = Number(e.value);
+          }
+        });
+
+        pf.addBinding(debugConfig, "disableDropoff", {}).on("change", (e) => {
+          if (e.last) {
+            settings.current.disableDropoff = Boolean(e.value);
           }
         });
 
