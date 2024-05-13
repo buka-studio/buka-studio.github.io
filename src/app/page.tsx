@@ -1,4 +1,5 @@
 import BrandMenu from "./BrandMenu";
+import CommandPalette from "./CommandPalette";
 import Footer from "./Footer";
 import ParticlesLogo from "./ParticlesLogo";
 import { ThemeToggle } from "./ThemeToggle";
@@ -44,6 +45,7 @@ export default function Home() {
           </div>
         </main>
       </div>
+      <CommandPalette />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useFBO, useGLTF, useProgress } from "@react-three/drei";
+import { useFBO } from "@react-three/drei";
 import {
   Canvas,
   ReactThreeFiber,
@@ -10,16 +10,29 @@ import {
 } from "@react-three/fiber";
 import { ComponentProps, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
-// @ts-ignore
-import { MeshSurfaceSampler } from "three/addons/math/MeshSurfaceSampler.js";
+import { MeshSurfaceSampler } from "three/examples/jsm/Addons.js";
 
+import { BladeState } from "@tweakpane/core";
 import { clamp, useSpring } from "framer-motion";
 import { useTheme } from "next-themes";
+import { BufferGeometryUtils, SVGLoader } from "three/examples/jsm/Addons.js";
+import { Pane } from "tweakpane";
 import SimulationMaterial from "./SimulationMaterial";
+import { toast } from "./ui/Toast";
 import useMatchMedia from "./useMatchMedia";
-import { cn } from "./util";
+import { getBrandColor } from "./util";
 
 extend({ SimulationMaterial: SimulationMaterial });
+
+function remap(
+  value: number,
+  start1: number,
+  stop1: number,
+  start2: number,
+  stop2: number
+) {
+  return ((value - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
+}
 
 declare global {
   namespace JSX {
@@ -30,6 +43,12 @@ declare global {
       >;
     }
   }
+}
+
+function getColorVec() {
+  const color = getBrandColor();
+  const col = new THREE.Color(color);
+  return new THREE.Vector3(col.r, col.g, col.b);
 }
 
 const useSampler = (
@@ -82,16 +101,20 @@ const useMouseRef = () => {
 
 // inspired by https://blog.maximeheckel.com/posts/the-magical-world-of-particles-with-react-three-fiber-and-shaders/
 const ParticlesLogo = ({
-  count = 300,
+  count,
   active,
-  onLoaded,
+  color,
+  scale,
+  geometry,
 }: {
-  count?: number;
+  count: number;
   active: boolean;
-  onLoaded: () => void;
+  color?: THREE.Vector3;
+  scale: number;
+  geometry: THREE.BufferGeometry;
 }) => {
   const isTouchDevice = useMatchMedia("(pointer: coarse)");
-  const { resolvedTheme, setTheme } = useTheme();
+  useTheme();
 
   const points = useRef<THREE.Points>(null);
   const simulationMaterialRef = useRef<THREE.ShaderMaterial>(null);
@@ -119,19 +142,7 @@ const ParticlesLogo = ({
     type: THREE.FloatType,
   });
 
-  const { nodes, materials } = useGLTF("/buka-logo.glb");
-  const { progress } = useProgress();
-  useEffect(() => {
-    if (progress === 100) {
-      onLoaded();
-    }
-  }, [progress, onLoaded]);
-
-  const sampler = useSampler(
-    (nodes?.Buka as any)?.geometry,
-    count * count,
-    clamp(200, 300, window.innerWidth / 4.5)
-  );
+  const sampler = useSampler(geometry, count * count, scale);
 
   const particlesPosition = useMemo(() => {
     const length = count * count;
@@ -146,14 +157,14 @@ const ParticlesLogo = ({
 
   const uniforms = useMemo(
     () => ({
+      uTime: {
+        value: 0,
+      },
       uPositions: {
         value: null,
       },
       uColor: {
-        value:
-          resolvedTheme === "dark"
-            ? new THREE.Vector3(1.0, 0.2, 0.13)
-            : new THREE.Vector3(0, 0, 0),
+        value: color || getColorVec(),
       },
     }),
     []
@@ -173,6 +184,8 @@ const ParticlesLogo = ({
     }
   }, [active]);
 
+  const col = color || getColorVec();
+
   useFrame((state) => {
     if (!simulationMaterialRef.current) return;
 
@@ -189,10 +202,11 @@ const ParticlesLogo = ({
     const pointsMaterial = points.current!.material as THREE.ShaderMaterial;
 
     pointsMaterial.uniforms.uPositions.value = renderTarget.texture;
-    pointsMaterial.uniforms.uColor.value =
-      resolvedTheme === "dark"
-        ? new THREE.Vector3(1.0, 0.2, 0.13)
-        : new THREE.Vector3(0, 0, 0);
+    if (!pointsMaterial.uniforms.uColor.value.equals(col)) {
+      pointsMaterial.uniforms.uColor.value = col;
+      pointsMaterial.needsUpdate = true;
+    }
+    pointsMaterial.uniforms.uTime.value = clock.elapsedTime;
 
     simulationMaterialRef.current.uniforms.uTime.value = clock.elapsedTime;
     if (isTouchDevice) {
@@ -247,13 +261,16 @@ const ParticlesLogo = ({
           ref={baseMaterialRef}
           fragmentShader={`
             uniform vec3 uColor;
+            uniform float uTime;
 
             void main() {
               vec2 xy = gl_PointCoord.xy - vec2(0.5);
 
               float dropoff = smoothstep(0.5, 0.1, length(xy));
 
-              gl_FragColor = vec4(uColor * dropoff, 1.0);
+              float fadeIn = smoothstep(0.0, 1.0, uTime);
+
+              gl_FragColor = vec4(uColor * dropoff, fadeIn);
             }
             `}
           vertexShader={`
@@ -279,25 +296,233 @@ const ParticlesLogo = ({
   );
 };
 
+const bukaSVG = `<svg
+  width="257"
+  height="257"
+  viewBox="0 0 257 257"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M109.154 186.851C189.533 160.858 248.869 88.0762 255.052 0.615791H0.615973V187.904C0.61591 187.904 0.616037 187.904 0.615973 187.904L0.615784 256.384H256.384V108.798C216.708 147.831 165.898 175.582 109.154 186.851Z"
+      fill="red"
+    />
+  </svg>
+`;
+
+function geometryFromSVG(svg: string, depth = 50) {
+  const loader = new SVGLoader();
+  const svgData = loader.parse(svg);
+
+  const geometries = svgData.paths
+    .map((p) => {
+      const shapes = p.toShapes(true);
+      return shapes.map((s) => {
+        const geometry = new THREE.ExtrudeGeometry(s, {
+          depth,
+          bevelEnabled: false,
+        });
+
+        return geometry;
+      });
+    })
+    .flat();
+
+  const geometry = BufferGeometryUtils.mergeGeometries(geometries);
+  geometry.rotateX(Math.PI / 2);
+  geometry.center();
+
+  if (!geometry.boundingBox) {
+    toast.error("Bounding box not found");
+  }
+  const bb = geometry.boundingBox!;
+  const size = new THREE.Vector3();
+  bb.getSize(size);
+
+  const scale = 1 / Math.max(size.x, size.y, size.z);
+  geometry.scale(scale, scale, scale);
+
+  return geometry;
+}
+
+const defaultSettings = {
+  count: 300,
+  depth: 50,
+  scale: 6, // 4-8 range
+  logoSVG: bukaSVG,
+};
+
 const Scene = ({
   className,
   ...props
 }: Partial<ComponentProps<typeof Canvas>>) => {
   const [loaded, setLoaded] = useState(false);
   const [active, setActive] = useState(false);
+  const [iterationCount, setIterationCount] = useState(0);
+
+  const settings = useRef<{
+    color?: THREE.Vector3;
+    background?: string;
+    count: number;
+    logoSVG?: string;
+    depth?: number;
+    scale: number;
+  }>({ ...defaultSettings });
+
+  function rerun() {
+    setIterationCount((prev) => prev + 1);
+  }
+
+  const paneRef = useRef<Pane>();
+
+  useEffect(() => {
+    const debugConfig = {
+      color: getBrandColor(),
+      background: getComputedStyle(document.documentElement).getPropertyValue(
+        "--page-background"
+      ),
+      ...defaultSettings,
+    };
+
+    function handleDebug() {
+      if (window.location.hash.includes("debug")) {
+        if (paneRef.current) return;
+        let baseState: BladeState;
+
+        const pane = new Pane({
+          title: "Debug",
+          expanded: true,
+        });
+        paneRef.current = pane;
+
+        pane
+          .addBinding(debugConfig, "background", { view: "color" })
+          .on("change", (e) => {
+            if (e.last) {
+              document.documentElement.style.setProperty("background", e.value);
+            }
+          });
+
+        const pf = pane.addFolder({ title: "Particles" });
+
+        pf.addBinding(debugConfig, "color", { view: "color" }).on(
+          "change",
+          (e) => {
+            if (e.last) {
+              const vec = new THREE.Vector3();
+              const col = new THREE.Color(e.value);
+              vec.set(col.r, col.g, col.b);
+
+              settings.current.color = vec;
+            }
+          }
+        );
+
+        pf.addBinding(debugConfig, "logoSVG", { label: "logo SVG" }).on(
+          "change",
+          (e) => {
+            if (e.last) {
+              settings.current.logoSVG = e.value;
+            }
+          }
+        );
+
+        // pf.addBinding(debugConfig, "scale", {
+        //   min: 1,
+        //   max: 10,
+        //   step: 1,
+        // }).on("change", (e) => {
+        //   if (e.last) {
+        //     settings.current.scale = Number(e.value);
+        //   }
+        // });
+
+        pf.addBinding(debugConfig, "depth", {
+          min: 10,
+          max: 100,
+          step: 10,
+        }).on("change", (e) => {
+          if (e.last) {
+            settings.current.depth = Number(e.value);
+          }
+        });
+
+        pf.addBinding(debugConfig, "count", {
+          min: 200,
+          max: 1000,
+          step: 100,
+        }).on("change", (e) => {
+          if (e.last) {
+            settings.current.count = Number(e.value);
+          }
+        });
+
+        pf.addButton({ title: "Reset" }).on("click", () => {
+          settings.current = { ...defaultSettings };
+          pane.importState(baseState);
+          pane.refresh();
+          document.documentElement.style.setProperty(
+            "background",
+            "var(--page-background)"
+          );
+          rerun();
+        });
+
+        baseState = pane.exportState();
+
+        pf.addButton({ title: "Apply" }).on("click", rerun);
+      } else {
+        paneRef.current?.dispose();
+        paneRef.current = undefined;
+        document.documentElement.style.setProperty(
+          "background",
+          "var(--page-background)"
+        );
+        settings.current = { ...defaultSettings };
+        rerun();
+      }
+    }
+
+    handleDebug();
+
+    window.addEventListener("hashchange", handleDebug);
+
+    return () => {
+      window.removeEventListener("hashchange", handleDebug);
+    };
+  }, []);
+
+  const [geometry, setGeometry] = useState<THREE.BufferGeometry>();
+
+  useEffect(() => {
+    const { logoSVG } = settings.current;
+    setGeometry(geometryFromSVG(logoSVG || bukaSVG, settings.current.depth));
+  }, [iterationCount]);
 
   return (
     <Canvas
+      gl={{ preserveDrawingBuffer: true }}
+      id="scene"
       camera={{ position: [0, 10, 0] }}
       {...props}
-      className={cn("opacity-0 duration-1000 transition-opacity", {
-        "opacity-100": loaded,
-      })}
       onClick={() => {
         setActive(!active);
       }}
+      key={iterationCount}
     >
-      <ParticlesLogo onLoaded={() => setLoaded(true)} active={active} />
+      {geometry && (
+        <ParticlesLogo
+          active={active}
+          {...settings.current}
+          geometry={geometry}
+          scale={remap(
+            clamp(300, 1200, window.innerWidth / 2),
+            300,
+            1200,
+            3,
+            8
+          )}
+        />
+      )}
     </Canvas>
   );
 };

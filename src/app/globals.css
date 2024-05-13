@@ -65,13 +65,17 @@
 }
 
 :root {
-  background: white;
-  --color-brand: black;
+  --page-background: #fff;
+  --color-brand: #000;
 }
 
 :root.dark {
-  background: black;
+  --page-background: #000;
   --color-brand: #ec4c22;
+}
+
+:root {
+  background: var(--page-background);
 }
 
 .page::before {
@@ -86,4 +90,8 @@
   background: #000000;
   filter: url(#noiseFilter);
   pointer-events: none;
+}
+
+.tp-dfwv {
+  z-index: 50;
 }
