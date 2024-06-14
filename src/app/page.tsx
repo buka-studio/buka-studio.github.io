@@ -27,14 +27,11 @@ export default function Home() {
             <div>/</div>
           </div>
           <Footer className="row-start-2 md:static absolute bottom-0 text-sm md:text-base" />
-          <div className="md:col-start-2 row-start-2 flex items-center gap-5">
-            <a
-              href="mailto:hello@buka.studio"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Contact
+          <div className="md:col-start-2 row-start-2 flex items-center gap-1">
+            <a href="mailto:hello@buka.studio" rel="noopener noreferrer">
+              hello@buka.studio
             </a>
+            /
             <a
               href="https://github.com/buka-studio"
               target="_blank"
