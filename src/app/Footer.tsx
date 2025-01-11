@@ -7,7 +7,7 @@ export default function Footer({ className }: { className?: string }) {
   return (
     <Drawer.Root>
       <footer className={cn("text-brand", className)}>
-        © 2024 Buka Studio. All rights reserved /{" "}
+        © 2025 Buka Studio. All rights reserved /{" "}
         <Drawer.Trigger className="">Legal</Drawer.Trigger>
       </footer>
       <Drawer.Portal>
