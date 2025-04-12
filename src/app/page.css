@@ -1,0 +1,41 @@
+.outlined-bottom {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 200vw;
+    height: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -1px;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  &.dashed {
+    &::before {
+      border-bottom: 1px dashed hsl(var(--border));
+    }
+  }
+}
+
+.outlined-top {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 200vw;
+    height: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -1px;
+    border-top: 1px solid hsl(var(--border));
+  }
+
+  &.dashed {
+    &::after {
+      border-top: 1px dashed hsl(var(--border));
+    }
+  }
+}

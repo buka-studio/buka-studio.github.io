@@ -30,7 +30,7 @@
     --accent-foreground: 24 9.8% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
-    --border: 20 5.9% 80%;
+    --border: 20 5.9% 90%;
     --input: 20 5.9% 90%;
     --ring: 24.6 95% 53.1%;
     --radius: 0.5rem;
@@ -53,7 +53,7 @@
     --accent-foreground: 60 9.1% 97.8%;
     --destructive: 0 72.2% 50.6%;
     --destructive-foreground: 60 9.1% 97.8%;
-    --border: 12 6.5% 11.1%;
+    --border: 12 6.5% 15.1%;
     --input: 12 6.5% 15.1%;
     --ring: 20.5 90.2% 48.2%;
   }
@@ -65,33 +65,33 @@
 }
 
 :root {
-  --foreground: 20 14% 4%;
-  --muted-foreground: 24 10% 10%;
-  --muted-foreground-2: 24 10% 20%;
-
-  --background: 20 6% 90%;
-  --muted-background: 24 5% 64%;
-
-  --color-brand: 12 84% 53%;
+  --page-background: 0 0% 100%;
+  --color-brand-hex: #000;
 }
 
 :root.dark {
-  --foreground: 20 6% 90%;
-  --muted-foreground: 24 5% 64%;
-  --muted-foreground-2: 24 5% 44%;
-
-  --background: 20 14% 4%;
-  --muted-background: 24 10% 10%;
-}
-
-:root.dark {
-  --color-brand: 12 84% 53%;
+  --page-background: 0 0% 0%;
+  --color-brand-hex: #ec4c22;
 }
 
 :root {
-  background: hsl(var(--background));
+  background: hsl(var(--page-background));
 }
 
-.focus-brand {
-  @apply focus-visible:rounded-none focus-visible:outline-none focus-visible:ring-1 focus:outline-none focus-visible:ring-brand;
+.page::before {
+  position: absolute;
+  right: 0;
+  top: 0;
+  content: "";
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+  opacity: 20%;
+  background: #000000;
+  filter: url(#noiseFilter);
+  pointer-events: none;
+}
+
+.tp-dfwv {
+  z-index: 50;
 }

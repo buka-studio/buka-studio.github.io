@@ -1,0 +1,69 @@
+<svg
+  width="176"
+  height="176"
+  viewBox="0 0 176 176"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect
+    x=".445"
+    y=".044"
+    width="175"
+    height="175"
+    rx="30"
+    fill="url(#paint0_radial_82_2792)"
+  />
+  <rect
+    x=".945"
+    y=".544"
+    width="174"
+    height="174"
+    rx="29.5"
+    stroke="#fff"
+    stroke-opacity=".05"
+  />
+  <mask
+    id="mask0_82_2792"
+    style="mask-type: alpha"
+    maskUnits="userSpaceOnUse"
+    x="51"
+    y="51"
+    width="73"
+    height="73"
+  >
+    <path
+      d="M82.49 103.989c22.65-7.323 39.371-27.832 41.113-52.478h-71.69V123.578h72.066V81.996c-11.181 10.999-25.499 18.818-41.49 21.993Z"
+      fill="url(#paint1_linear_82_2792)"
+    />
+  </mask>
+  <g mask="url(#mask0_82_2792)">
+    <path
+      d="M82.49 103.989c22.65-7.323 39.371-27.832 41.113-52.478h-71.69V123.578h72.066V81.996c-11.181 10.999-25.499 18.818-41.49 21.993Z"
+      fill="var(--accent, #F44E22)"
+    />
+  </g>
+  <defs>
+    <radialGradient
+      id="paint0_radial_82_2792"
+      cx="0"
+      cy="0"
+      r="1"
+      gradientUnits="userSpaceOnUse"
+      gradientTransform="matrix(74.19816 142.83145 -161.45809 83.87434 76.577 52.627)"
+    >
+      <stop stop-color="#151515" />
+      <stop offset="1" stop-color="#0C0C0C" />
+    </radialGradient>
+    <linearGradient
+      id="paint1_linear_82_2792"
+      x1="87.945"
+      y1="51.511"
+      x2="87.945"
+      y2="123.578"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop />
+      <stop offset="1" stop-opacity=".7" />
+    </linearGradient>
+  </defs>
+</svg>

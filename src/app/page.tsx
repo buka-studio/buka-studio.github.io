@@ -1,113 +1,142 @@
-import Image from 'next/image'
+import Logomark from "../../public/logomark.svg";
+
+import { CSSProperties } from "react";
+import BukaNoise from "./components/BukaNoise";
+import LegalDrawer from "./components/LegalDrawer";
+import "./page.css";
+import ThemeSwitcher from "./ThemeSwitcher";
+import { cn } from "./util";
+
+function Header({ className }: { className?: string }) {
+  return (
+    <div className={cn("text-sm", className)}>
+      <span className="text-muted-foreground">ブカ</span>
+      <h1 className="text-brand font-semibold ">Buka Studio</h1>
+      <p className="text-muted-foreground">Design and development</p>
+    </div>
+  );
+}
+
+function About({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn(
+        "flex flex-col gap-5 text-muted-foreground text-sm",
+        className
+      )}
+    >
+      <p className="text-foreground font-medium text-base">
+        We help founders turn ideas into products and brands.
+      </p>
+      <p className="text-foreground font-medium text-base">
+        We’re{" "}
+        <a
+          href="https://marijanapav.com"
+          className="underline hover:text-brand decoration-1 focus-brand"
+        >
+          Marijana
+        </a>{" "}
+        and{" "}
+        <a
+          href="https://rpavlini.com"
+          className="underline hover:text-brand decoration-1 focus-brand"
+        >
+          Robert
+        </a>
+        , a designer–developer duo behind Buka Studio. We work closely with
+        teams we believe in.
+      </p>
+      <p>
+        We like projects where design and code move together, so nothing gets{" "}
+        <span className="italic">lost in translation.</span>
+      </p>
+
+      <p>
+        We’re drawn to new ideas. We dive in fast, and explore broadly. Whether
+        we’re shaping early ideas, refining products in production, or crafting
+        bold visuals for one-off moments, we make sure everything feels cohesive
+        and on-brand.
+      </p>
+    </div>
+  );
+}
+
+function Contact({ className }: { className?: string }) {
+  return (
+    <div
+      className={cn(
+        "gap-5 flex flex-col text-muted-foreground text-sm",
+        className
+      )}
+    >
+      <p>
+        If you share this vision, and are looking for a partner to push your
+        product forward, say{" "}
+        <a
+          href="mailto:hello@buka.studio"
+          className="underline font-medium hover:text-brand decoration-1 focus-brand"
+        >
+          hello@buka.studio
+        </a>
+      </p>
+
+      <p>Based in Croatia, available remotely.</p>
+    </div>
+  );
+}
+
+function Footer({ className }: { className?: string }) {
+  return (
+    <footer
+      className={cn(
+        "flex justify-between  gap-5 text-muted-foreground2",
+        className
+      )}
+    >
+      <span className="flex items-center gap-2 text-sm">
+        <Logomark className="h-[14px] w-[14px] opacity-60" />{" "}
+        {new Date().getFullYear()}{" "}
+        <span className="hidden md:inline">Buka Studio</span>
+      </span>
+
+      <span className="flex gap-4 items-center text-sm">
+        <a
+          href="mailto:hello@buka.studio"
+          className="hover:text-brand focus-brand"
+        >
+          Contact
+        </a>
+
+        <LegalDrawer>Legal</LegalDrawer>
+        <ThemeSwitcher className="text-muted-foreground2 opacity-60" />
+      </span>
+    </footer>
+  );
+}
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div
+      className="page px-3 overflow-x-clip selection:text-brand selection:bg-brand/10"
+      style={
+        {
+          "--fluid-col":
+            "clamp(20px, calc(20px + (80 * ((100vw - 450px) / (1024 - 450)))), 100px)",
+        } as CSSProperties
+      }
+    >
+      <div className="content grid grid-cols-[var(--fluid-col),1fr,var(--fluid-col)] max-w-3xl w-full min-h-screen mx-auto grid-rows-[repeat(6,auto),1fr,auto] border-l border-r border-dashed">
+        <div className="grid grid-rows-subgrid col-[2] row-[1/10] border-l border-r">
+          <div className="h-10 col-[2] row-[1] outlined-bottom dashed" />
+          <Header className="col-[2] row-[2] py-3 md:py-8 md:px-8 px-3" />
+          <div className="h-4 col-[2] row-[3] outlined-top outlined-bottom" />
+          <BukaNoise className="col-[2] row-[5]" />
+          <About className="col-[2] row-[6] outlined-top outlined-bottom py-8 md:px-8 px-3 " />
+          <Contact className="col-[2] row-[7] outlined-bottom py-8 md:px-8 px-3 pb-20" />
+          <Footer className="col-[2] row-[8] py-3 md:px-8 px-3" />
+          <div className="h-10 col-[2] row-[9] outlined-top dashed" />
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }
