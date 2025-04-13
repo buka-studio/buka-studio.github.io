@@ -6,16 +6,17 @@ import { cn } from "../util";
 import CrossBackground from "./CrossBackground";
 import CanvasNoise from "./Noise";
 
+const getThemeColor = (theme?: string) => {
+  return theme === "dark" ? "rgb(50, 50, 50)" : "rgb(0, 0, 0)";
+};
+
 export default function BukaNoise({ className }: { className?: string }) {
   const { resolvedTheme } = useTheme();
-  const getThemeColor = () => {
-    return resolvedTheme === "dark" ? "rgb(50, 50, 50)" : "rgb(0, 0, 0)";
-  };
 
   const [color, setColor] = useState<string | undefined>();
 
   useEffect(() => {
-    setColor(getThemeColor());
+    setColor(getThemeColor(resolvedTheme));
   }, [resolvedTheme]);
 
   return (
@@ -26,7 +27,7 @@ export default function BukaNoise({ className }: { className?: string }) {
         style={{
           maskImage: 'url("logomark.svg")',
         }}
-        onMouseLeave={() => setColor(getThemeColor())}
+        onMouseLeave={() => setColor(getThemeColor(resolvedTheme))}
         onMouseEnter={() => setColor("rgb(236, 75, 34)")}
       >
         {color && (

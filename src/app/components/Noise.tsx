@@ -61,7 +61,6 @@ function Canvas({
     if (!ctx) return;
 
     ctx.clearRect(0, 0, canvasSize, canvasSize);
-    // ctx.fillStyle = color;
 
     t.current += 0.05;
     const c = interpolator.current(t.current);
@@ -77,33 +76,16 @@ function Canvas({
           time / (8000 * seed.current)
         );
 
-        // const noiseFactor2 = noise3d(
-        //   mouse.current.x * 0.0005 * i,
-        //   mouse.current.y * 0.0005 * j,
-        //   time / (8000 * seed.current)
-        // );
-
-        const mouseDistance = Math.sqrt(
-          (mouse.current.x - i * 20 + 5) ** 2 +
-            (mouse.current.y - j * 20 + 5) ** 2
-        );
-
-        const mouseSize = 500;
-
         var s = (noiseFactor < 0 ? 0.4 : noiseFactor < 0.5 ? 0.95 : 1.5) * 0.25;
 
-        const mouseFactor = 1; //clamp(1, 2, (100 / mouseDistance) * 5);
-
         const baseSize = isLightTheme ? 25 : 20;
-        const size = baseSize * s * mouseFactor;
+        const size = baseSize * s;
 
         const halfSize = size / 2;
 
         ctx.fillRect(i * 20 + 5 - halfSize, j * 20 + 5 - halfSize, size, size);
       }
     }
-
-    // ctx.fillRect(mouse.current.x - 50, mouse.current.y - 50, 100, 100);
 
     if (!initialized) {
       setInitialized(true);
