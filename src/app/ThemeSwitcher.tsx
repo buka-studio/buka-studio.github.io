@@ -47,6 +47,8 @@ export default function ThemeSwitcher({ className }: { className?: string }) {
         {didMount && (
           <motion.button
             aria-label="Toggle theme"
+            data-umami-event="Toggle theme"
+            data-umami-event-theme={controls[nextIndex].value}
             className="rounded-full focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
