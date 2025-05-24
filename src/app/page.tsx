@@ -1,6 +1,7 @@
 import Logomark from "../../public/logomark.svg";
 
 import { CSSProperties } from "react";
+import AnimatedSignature from "./components/AnimatedSignature";
 import BukaNoise from "./components/BukaNoise";
 import LegalDrawer from "./components/LegalDrawer";
 import "./page.css";
@@ -81,6 +82,10 @@ function Contact({ className }: { className?: string }) {
       </p>
 
       <p>Based in Croatia, available remotely.</p>
+
+      <div className="mt-5">
+        <AnimatedSignature className="w-[clamp(200px,50vw,220px)] h-auto" />
+      </div>
     </div>
   );
 }
@@ -132,7 +137,7 @@ export default function Home() {
           <div className="h-4 col-[2] row-[3] outlined-top outlined-bottom" />
           <BukaNoise className="col-[2] row-[5]" />
           <About className="col-[2] row-[6] outlined-top outlined-bottom py-8 md:px-8 px-3 " />
-          <Contact className="col-[2] row-[7] outlined-bottom py-8 md:px-8 px-3 pb-20" />
+          <Contact className="col-[2] row-[7] outlined-bottom py-8 md:px-8 px-3 pb-12" />
           <Footer className="col-[2] row-[8] py-3 md:px-8 px-3" />
           <div className="h-10 col-[2] row-[9] outlined-top dashed" />
         </div>
