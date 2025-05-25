@@ -1,9 +1,9 @@
 "use client";
 
 import { motion, MotionProps } from "framer-motion";
-import { ComponentProps } from "react";
+import { ComponentProps, useState } from "react";
 
-const groupProps: Partial<MotionProps> = {
+const defaultGroupProps: Partial<MotionProps> = {
   variants: {
     initial: { pathLength: 0, opacity: 0 },
     animate: (custom: number) => ({
@@ -16,7 +16,6 @@ const groupProps: Partial<MotionProps> = {
     }),
   },
   initial: "initial",
-  whileInView: "animate",
   viewport: { once: true },
 };
 
@@ -33,6 +32,13 @@ export default function AnimatedSignature({
 }: {
   className?: string;
 }) {
+  const [isInView, setIsInView] = useState(false);
+
+  const groupProps = {
+    ...defaultGroupProps,
+    animate: isInView ? "animate" : "initial",
+  };
+
   return (
     <motion.svg
       xmlns="http://www.w3.org/2000/svg"
@@ -45,11 +51,23 @@ export default function AnimatedSignature({
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      onViewportEnter={() => setIsInView(true)}
     >
       <Marijana {...groupProps} custom={0} pathProps={pathProps} />
       <Ampersand {...groupProps} custom={2.5} pathProps={pathProps} />
       <Robert {...groupProps} custom={3.5} pathProps={pathProps} />
-      <Smiley {...groupProps} custom={5.5} pathProps={pathProps} />
+      <Smiley
+        {...groupProps}
+        custom={5.5}
+        pathProps={{
+          ...pathProps,
+          transition: {
+            duration: 0.1,
+            opacity: { duration: 0 },
+            ease: "linear",
+          },
+        }}
+      />
     </motion.svg>
   );
 }
