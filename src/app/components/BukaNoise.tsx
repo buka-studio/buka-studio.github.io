@@ -3,7 +3,6 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { cn } from "../util";
-import CrossBackground from "./CrossBackground";
 import CanvasNoise from "./Noise";
 
 const getThemeColor = (theme?: string) => {
@@ -20,26 +19,26 @@ export default function BukaNoise({ className }: { className?: string }) {
   }, [resolvedTheme]);
 
   return (
-    <div className={cn("p-2 w-full aspect-square min-w-0 relative", className)}>
-      <CrossBackground className="text-neutral-700" />
-      <div
-        className="noise-container relative w-full h-full overflow-hidden [mask-size:cover]"
-        style={{
-          maskImage: 'url("logomark.svg")',
-        }}
-        onMouseLeave={() => setColor(getThemeColor(resolvedTheme))}
-        onMouseEnter={() => setColor("rgb(236, 75, 34)")}
-      >
-        {color && (
-          <CanvasNoise
-            active={Boolean(color)}
-            className="absolute inset-0 w-full "
-            height={620}
-            width={620}
-            color={color}
-          />
-        )}
-      </div>
+    <div
+      className={cn(
+        "noise-container relative w-full h-full overflow-hidden [mask-size:cover]",
+        className
+      )}
+      style={{
+        maskImage: 'url("logomark.svg")',
+      }}
+      onMouseLeave={() => setColor(getThemeColor(resolvedTheme))}
+      onMouseEnter={() => setColor("rgb(236, 75, 34)")}
+    >
+      {color && (
+        <CanvasNoise
+          active={Boolean(color)}
+          className="absolute inset-0 w-full  [image-rendering:pixelated]"
+          height={620}
+          width={620}
+          color={color}
+        />
+      )}
     </div>
   );
 }

@@ -1,9 +1,8 @@
-import Logomark from "../../public/logomark.svg";
-
 import { CSSProperties } from "react";
 import AnimatedSignature from "./components/AnimatedSignature";
-import BukaNoise from "./components/BukaNoise";
+import CrossBackground from "./components/CrossBackground";
 import LegalDrawer from "./components/LegalDrawer";
+import { HeroProvider, HeroSwitcher, HeroVisual } from "./Hero";
 import "./page.css";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { cn } from "./util";
@@ -99,7 +98,7 @@ function Footer({ className }: { className?: string }) {
       )}
     >
       <span className="flex items-center gap-2 text-sm">
-        <Logomark className="h-[14px] w-[14px] opacity-60" />{" "}
+        <HeroSwitcher className="h-[0.85rem] w-[0.85rem] opacity-60" />
         {new Date().getFullYear()}{" "}
         <span className="hidden md:inline">Buka Studio</span>
       </span>
@@ -130,17 +129,23 @@ export default function Home() {
         } as CSSProperties
       }
     >
-      <div className="content grid grid-cols-[var(--fluid-col),1fr,var(--fluid-col)] max-w-3xl w-full min-h-screen mx-auto grid-rows-[repeat(6,auto),1fr,auto] border-l border-r border-dashed">
-        <div className="grid grid-rows-subgrid col-[2] row-[1/10] border-l border-r">
-          <div className="h-10 col-[2] row-[1] outlined-bottom dashed" />
-          <Header className="col-[2] row-[2] py-3 md:py-8 md:px-8 px-3" />
-          <div className="h-4 col-[2] row-[3] outlined-top outlined-bottom" />
-          <BukaNoise className="col-[2] row-[5]" />
-          <About className="col-[2] row-[6] outlined-top outlined-bottom py-8 md:px-8 px-3 " />
-          <Contact className="col-[2] row-[7] outlined-bottom py-8 md:px-8 px-3 pb-12" />
-          <Footer className="col-[2] row-[8] py-3 md:px-8 px-3" />
-          <div className="h-10 col-[2] row-[9] outlined-top dashed" />
-        </div>
+      <div className="content grid grid-cols-[var(--fluid-col),1fr,var(--fluid-col)] max-w-3xl w-full min-h-screen mx-auto grid-rows-[repeat(6,auto),1fr,repeat(4,auto)] border-l border-r border-dashed">
+        <HeroProvider>
+          <div className="grid grid-rows-subgrid col-[2] row-[1/11] border-l border-r">
+            <div className="h-10 col-[2] row-[1] outlined-bottom dashed" />
+            <Header className="col-[2] row-[2] py-3 md:py-8 md:px-8 px-3" />
+            <div className="h-4 col-[2] row-[3] outlined-top outlined-bottom" />
+            <div className="w-full aspect-square min-w-0 relative col-[2] row-[5]">
+              <CrossBackground className="text-neutral-700" />
+              <HeroVisual className="aspect-square" />
+            </div>
+            <About className="col-[2] row-[6] outlined-top outlined-bottom py-8 md:px-8 px-3 " />
+            <Contact className="col-[2] row-[7] py-8 md:px-8 px-3 pb-12" />
+            <div className="h-4 col-[2] row-[8] outlined-top outlined-bottom" />
+            <Footer className="col-[2] row-[9] py-3 md:px-8 px-3" />
+            <div className="h-10 col-[2] row-[10] outlined-top dashed" />
+          </div>
+        </HeroProvider>
       </div>
     </div>
   );
