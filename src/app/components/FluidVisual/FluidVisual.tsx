@@ -307,7 +307,7 @@ function SimulationCanvas({
       width={width * dpr}
       height={height * dpr}
       className={cn(
-        "bg-transparent w-full h-auto cursor-crosshair touch-none [image-rendering:pixelated]",
+        "bg-transparent w-full h-auto cursor-crosshair [image-rendering:pixelated]",
         className
       )}
       onMouseEnter={onMouseEnter}
