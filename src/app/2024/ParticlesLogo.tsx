@@ -3,12 +3,18 @@
 import { useFBO } from "@react-three/drei";
 import {
   Canvas,
-  ReactThreeFiber,
+  type ThreeElement,
   createPortal,
   extend,
   useFrame,
 } from "@react-three/fiber";
-import { ComponentProps, useEffect, useMemo, useRef, useState } from "react";
+import {
+  ComponentProps,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import * as THREE from "three";
 import { MeshSurfaceSampler } from "three/examples/jsm/Addons.js";
 
@@ -34,14 +40,9 @@ function remap(
   return ((value - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
 }
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      simulationMaterial: ReactThreeFiber.Object3DNode<
-        THREE.ShaderMaterial,
-        typeof SimulationMaterial
-      >;
-    }
+declare module "@react-three/fiber" {
+  interface ThreeElements {
+    simulationMaterial: ThreeElement<typeof SimulationMaterial>;
   }
 }
 
@@ -122,19 +123,30 @@ const ParticlesLogo = ({
   const simulationMaterialRef = useRef<THREE.ShaderMaterial>(null);
   const baseMaterialRef = useRef<THREE.ShaderMaterial>(null);
 
-  const scene = new THREE.Scene();
-  const camera = new THREE.OrthographicCamera(
-    -1,
-    1,
-    1,
-    -1,
-    1 / Math.pow(2, 53),
-    1
+  const scene = useMemo(() => new THREE.Scene(), []);
+  const camera = useMemo(
+    () =>
+      new THREE.OrthographicCamera(
+        -1,
+        1,
+        1,
+        -1,
+        1 / Math.pow(2, 53),
+        1
+      ),
+    []
   );
-  const positions = new Float32Array([
-    -1, -1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0,
-  ]);
-  const uvs = new Float32Array([0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0]);
+  const positions = useMemo(
+    () =>
+      new Float32Array([
+        -1, -1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0,
+      ]),
+    []
+  );
+  const uvs = useMemo(
+    () => new Float32Array([0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0]),
+    []
+  );
 
   const renderTarget = useFBO(count, count, {
     minFilter: THREE.NearestFilter,
@@ -242,15 +254,11 @@ const ParticlesLogo = ({
           <bufferGeometry>
             <bufferAttribute
               attach="attributes-position"
-              count={positions.length / 3}
-              array={positions}
-              itemSize={3}
+              args={[positions, 3]}
             />
             <bufferAttribute
               attach="attributes-uv"
-              count={uvs.length / 2}
-              array={uvs}
-              itemSize={2}
+              args={[uvs, 2]}
             />
           </bufferGeometry>
         </mesh>,
@@ -260,9 +268,7 @@ const ParticlesLogo = ({
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={particlesPosition.length / 3}
-            array={particlesPosition}
-            itemSize={3}
+            args={[particlesPosition, 3]}
           />
         </bufferGeometry>
         <shaderMaterial
@@ -385,7 +391,7 @@ const Scene = ({
     setIterationCount((prev) => prev + 1);
   }
 
-  const paneRef = useRef<Pane>();
+  const paneRef = useRef<Pane | null>(null);
 
   useEffect(() => {
     const debugConfig = {
@@ -492,7 +498,7 @@ const Scene = ({
         pf.addButton({ title: "Apply" }).on("click", rerun);
       } else {
         paneRef.current?.dispose();
-        paneRef.current = undefined;
+        paneRef.current = null;
         document.documentElement.style.setProperty(
           "background",
           "var(--page-background)"

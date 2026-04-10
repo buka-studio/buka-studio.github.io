@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 class SimulationMaterial extends THREE.ShaderMaterial {
-  constructor(size: number, positions: BufferSource) {
+  constructor(size: number, positions: Float32Array) {
     const positionsTexture = new THREE.DataTexture(
       positions,
       size,
@@ -190,7 +190,7 @@ class SimulationMaterial extends THREE.ShaderMaterial {
             vec3 pos = texture2D(positions, vUv).rgb;
   
             vec3 targetPos = pos + curlNoise(pos * uFrequency * log(uTime)) * uAmplitude * 2.;  
-            pos = mix(pos, targetPos, length(vec2(uMouseX, uMouseY))  + 0.01);
+            pos = mix(pos, targetPos, length(vec2(uMouseX, uMouseY)) + 0.01);
   
             gl_FragColor = vec4(pos, 1.0);
           }

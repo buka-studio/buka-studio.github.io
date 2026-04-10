@@ -5,7 +5,7 @@ import { useAnimationFrame } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import { createNoise3D } from "simplex-noise";
-import { randFloat } from "three/src/math/MathUtils";
+import { MathUtils } from "three";
 import { cn } from "../../util";
 
 const getThemeColor = (theme?: string) => {
@@ -27,7 +27,7 @@ function Canvas({
   height?: number;
   color: string;
 }) {
-  const seed = useRef(randFloat(0.5, 1.5));
+  const seed = useRef(MathUtils.randFloat(0.5, 1.5));
   const canvas = useRef<HTMLCanvasElement>(null);
   const mouse = useRef({ x: 0, y: 0 });
   const canvasSize = 1600;
@@ -43,7 +43,7 @@ function Canvas({
   const currentColor = useRef(parse(color));
 
   const interpolator = useRef(
-    interpolate([currentColor.current!, targetColor.current!])
+    interpolate([currentColor.current!, targetColor.current!]),
   );
   const t = useRef(0);
 
@@ -77,7 +77,7 @@ function Canvas({
         const noiseFactor = noise3d(
           i * 0.03,
           j * 0.03,
-          time / (8000 * seed.current)
+          time / (8000 * seed.current),
         );
 
         var s = (noiseFactor < 0 ? 0.4 : noiseFactor < 0.5 ? 0.95 : 1.5) * 0.25;
@@ -114,7 +114,7 @@ function Canvas({
       className={cn(
         "canvas relative overflow-hidden opacity-0 transition-all duration-1000",
         { "opacity-100": initialized },
-        className
+        className,
       )}
     />
   );
@@ -156,7 +156,7 @@ export default function NoiseVisual({ className }: { className?: string }) {
   return (
     <div className={cn("noise-container w-full h-full p-2", className)}>
       <div
-        className="relative w-full h-full overflow-hidden [mask-size:cover]"
+        className="relative w-full h-full overflow-hidden mask-cover"
         style={{
           maskImage: 'url("logomark.svg")',
         }}

@@ -1,6 +1,6 @@
 "use client";
 
-import { randFloat } from "three/src/math/MathUtils";
+import { MathUtils } from "three";
 import { clamp } from "~/app/math";
 import SpatialHash from "./SpatialHash";
 
@@ -92,8 +92,8 @@ class Particles {
       this.positions[2 * p] = particleX;
       this.positions[2 * p + 1] = particleY;
 
-      this.velocities[2 * p] = randFloat(0, 10);
-      this.velocities[2 * p + 1] = randFloat(0, 10);
+      this.velocities[2 * p] = MathUtils.randFloat(0, 10);
+      this.velocities[2 * p + 1] = MathUtils.randFloat(0, 10);
     }
   }
 

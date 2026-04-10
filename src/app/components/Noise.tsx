@@ -5,7 +5,7 @@ import { useAnimationFrame } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useRef, useState } from "react";
 import { createNoise3D } from "simplex-noise";
-import { randFloat } from "three/src/math/MathUtils";
+import { MathUtils } from "three";
 import { cn } from "../util";
 
 const noise3d = createNoise3D();
@@ -23,7 +23,7 @@ function Canvas({
   height?: number;
   color: string;
 }) {
-  const seed = useRef(randFloat(0.5, 1.5));
+  const seed = useRef(MathUtils.randFloat(0.5, 1.5));
   const canvas = useRef<HTMLCanvasElement>(null);
   const mouse = useRef({ x: 0, y: 0 });
   const canvasSize = 1600;

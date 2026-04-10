@@ -162,12 +162,12 @@ function SimulationCanvas({
             const targetColor = lerpVec3(
               hexToVec3(colors.cellFluid),
               hexToVec3(colors.accent),
-              hoverFactor.current
+              hoverFactor.current,
             );
             const finalColor = lerpVec3(
               hexToVec3(colors.background),
               targetColor,
-              density
+              density,
             );
 
             ctx.fillStyle = vec3ToRgb(finalColor);
@@ -308,7 +308,7 @@ function SimulationCanvas({
       height={height * dpr}
       className={cn(
         "bg-transparent w-full h-auto cursor-crosshair [image-rendering:pixelated]",
-        className
+        className,
       )}
       onMouseEnter={onMouseEnter}
       onMouseMove={onMouseMove}
@@ -357,7 +357,7 @@ function getConfig(
   }: {
     isMobile: boolean;
     theme?: string;
-  }
+  },
 ) {
   const config = {
     ...baseConfig,
@@ -407,7 +407,7 @@ export default function FluidVisual({ className }: { className?: string }) {
     getConfig(baseConfig, {
       isMobile,
       theme: theme.resolvedTheme,
-    })
+    }),
   );
   const [colors, setColors] = useState(getThemeColors(theme.resolvedTheme));
 
@@ -416,7 +416,7 @@ export default function FluidVisual({ className }: { className?: string }) {
       getConfig(baseConfig, {
         isMobile,
         theme: theme.resolvedTheme,
-      })
+      }),
     );
   }, [theme.resolvedTheme, isMobile]);
 
@@ -426,7 +426,7 @@ export default function FluidVisual({ className }: { className?: string }) {
 
   return (
     <div
-      className={cn("relative w-full h-full [mask-size:cover]", className)}
+      className={cn("relative w-full h-full mask-cover", className)}
       style={{
         maskImage: 'url("logomark.svg")',
       }}

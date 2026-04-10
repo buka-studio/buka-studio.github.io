@@ -21,8 +21,8 @@ export default function BukaNoise({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "noise-container relative w-full h-full overflow-hidden [mask-size:cover]",
-        className
+        "noise-container relative w-full h-full overflow-hidden mask-cover",
+        className,
       )}
       style={{
         maskImage: 'url("logomark.svg")',
